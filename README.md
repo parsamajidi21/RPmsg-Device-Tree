@@ -133,7 +133,7 @@ After connecting the host pc to debug port of your board, four USB serial interf
 $ ls /dev/ttyUSB*
   /dev/ttyUSB0 /dev/ttyUSB1 /dev/ttyUSB2 /dev/ttyUSB3  
 ```
-The highest USB index “/dev/ttyUSB3” is the Linux console.
+The highest USB index `/dev/ttyUSB3` is the Linux console and `/dev/ttyUSB2` is for M4 processor
 
 #### Environment setup
 For preparing the environment and having two terminals, one for Linux/U-Boot and one for communication with the M4, the ‘tmux’ is used, which is a terminal multiplexer. And for communicating with UART through the console a serial terminal tmulator, `picocom`, is used. 
