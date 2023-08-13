@@ -109,9 +109,34 @@ It can be downloaded and installed using package manager in some linux distribut
 ```bash
 $ sudo apt-get install gcc-arm-none-eabi binutils-arm-none-eabi
 ```
+After extracting the downloaded SDK, go to `<sdk-directory>/boards/evkmimx8mm/demo_apps/hello_world/armgcc`, then follow the below steps to set some environment variables:
+```bash
+$ export ARMGCC_DIR=~/gcc-arm-none-eabi-9-2020-q2-update
+```
+If you've installed the toolchain using your package manager, then run:
+```bash
+$ export ARMGCC_DIR=/usr
+```
+At the end run the below shell script and it will build both the debug and release versions of the application for all possible targets (DDR, FLASH and RAM)
+```bash
+$ ./build_all.sh
+```
+The next step is to insert an SD card in the host and format it in FAT32, then copy the `hello_world.bin` into the SD card.
+the `hello_world.bin` file can be found in `<sdk-directory>/boards/evkmimx8mm/demo_apps/hello_world/armgcc/release`
 
+#### Hardware setup
 
+For hardware setup, plug in the SD card into the USB port of the carrier board, the Dahlia Carrier board features a built-in USB to serial converter which can be used to access both the main OS debug UART- in this case UART3, as well as the default M4 debug UART (UART4) via a single USB C connector (X18)
+After connecting the host pc to debug port of your board, four USB serial interface can be seen as follows:
 
+```bash
+$ ls /dev/ttyUSB*
+  /dev/ttyUSB0 /dev/ttyUSB1 /dev/ttyUSB2 /dev/ttyUSB3  
+```
+The highest USB index “/dev/ttyUSB3” is the Linux console.
+
+#### Environment setup
+For preparing the environment and having two terminals, one for Linux/U-Boot and one for communication with the M4, the ‘tmux’ is used, which is a terminal multiplexer. And for communicating with UART through the console a serial terminal tmulator, `picocom`, is used. 
 
 
 ### Interprocess Communication (IPC) - RPmsg on Verdin i. MX8M Mini:
