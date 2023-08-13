@@ -140,6 +140,9 @@ For preparing the environment and having two terminals, one for Linux/U-Boot and
 
 ![dd](https://github.com/parsamajidi21/RPmsg-Device-Tree/blob/main/images/photo1.png)
 
+In the image, the above terminal is for communicating with Linux/U-Boot and the below terminal is for communicating with the cortex-M4. When we run the above command, it starts communicating with Linux through the UART and by powering up the board, Linux boots up. Meanwhile booting up the OS by pressing any key in the keyboard and interrupting the boot process we will have a U-Boot shell, as follows:
+
+![dd](https://github.com/parsamajidi21/RPmsg-Device-Tree/blob/main/images/photo2.png)
 ### Interprocess Communication (IPC) - RPmsg on Verdin i. MX8M Mini:
 
 
