@@ -151,7 +151,7 @@ Verdin iMX8MM # saveenv
 Verdin iMX8MM # fatload mmc 1 0x48000000 hello_world.bin && dcache flush && cp.b 0x48000000 ${m4addr} 0x20000
 Verdin iMX8MM # bootaux ${m4addr}
 ```
-![dd](https://github.com/parsamajidi21/RPmsg-Device-Tree/blob/main/images/photo3.png)
+![dd](https://github.com/parsamajidi21/RPmsg-Device-Tree/blob/main/images/photo4.png)
 ### Interprocess Communication (IPC) - RPmsg on Verdin i. MX8M Mini:
 
 
