@@ -95,7 +95,7 @@ $ {HOME}/path/oe-core/build/deploy/images/verdin-imx8mm
 * Connect to the board remotely via a VNC tool 
 * Install the image on the board
   
-![Image](/home/parsa/custom-dt/builtYocto.png)
+![Image](https://github.com/parsamajidi21/RPmsg-Device-Tree/blob/main/images/builtYocto.png)
 
 ### Installing RTOS to be used by the Cortex-M4 core
 This stage aims to reload code on Cortex-M4 from the U-Boot. 
@@ -138,6 +138,7 @@ The highest USB index `/dev/ttyUSB3` is the Linux console and `/dev/ttyUSB2` is 
 #### Environment setup
 For preparing the environment and having two terminals, one for Linux/U-Boot and one for communication with the M4, the ‘tmux’ is used, which is a terminal multiplexer. And for communicating with UART through the console a serial terminal tmulator, `picocom`, is used. 
 
+![dd](https://github.com/parsamajidi21/RPmsg-Device-Tree/blob/main/images/photo1.png)
 
 ### Interprocess Communication (IPC) - RPmsg on Verdin i. MX8M Mini:
 
