@@ -152,6 +152,18 @@ Verdin iMX8MM # fatload mmc 1 0x48000000 hello_world.bin && dcache flush && cp.b
 Verdin iMX8MM # bootaux ${m4addr}
 ```
 ![dd](https://github.com/parsamajidi21/RPmsg-Device-Tree/blob/main/images/photo4.png)
+
+The file named "hello_world.bin" has a size of 6268 bytes. In the subsequent steps, an environment variable is established using the 'setenv' command. The address 0x007e0000 is assigned the value 'm4addr'. This address corresponds to the Tightly Coupled Memory (TCM) of the M4, which is accessible by the Cortex-A53.
+  
+Following this, the command 'fatload mmc 1 0x48000000 hello_world.bin' is executed. This command retrieves the contents of the "hello_world.bin" file from the second partition of the SD card (designated as mmc 1) and stores it at memory location 0x48000000. This specific address, 0x48000000, corresponds to the DDR Address of the memory that the M4 can access.
+
+To ensure data consistency, the 'dcache flush' command is employed. This command ensures that any modifications made to the data in memory are synchronized with the main memory. In this context, the term "main memory" denotes the memory accessible by both the Cortex A53 core and the Cortex M4 core.
+
+Concluding the sequence of actions, a data block located at address 0x48000000 is duplicated to address 0x007e0000. The size of this data block is specified as 0x20000.
+
+The final step involves initiating the Cortex-M4 core using the command "bootaux ${m4addr}". This instruction triggers the execution of the loaded image at address 0x007e0000. As a result, the output "hello world." becomes visible on the M4 UART, facilitating communication.
+
+In this manner, the Cortex-M4 core is activated, and the "hello world." message is displayed on the M4 UART interface.
 ### Interprocess Communication (IPC) - RPmsg on Verdin i. MX8M Mini:
 
 
