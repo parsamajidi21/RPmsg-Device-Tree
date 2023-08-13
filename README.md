@@ -155,13 +155,13 @@ Verdin iMX8MM # bootaux ${m4addr}
 
 The file "hello_world.bin" is 6268 bytes in size. After configuring an environment variable using the 'setenv' command, the address 0x007e0000 is designated as 'm4addr'. This address corresponds to the Cortex-M4's Tightly Coupled Memory (TCM) accessible by Cortex-A53.
 
-The 'fatload mmc 1 0x48000000 `hello_world.bin` command fetches the file from the second SD card partition (mmc 1) and stores it at memory address 0x48000000, which the M4 can access.
+The `fatload mmc 1 0x48000000 hello_world.bin` command fetches the file from the second SD card partition (mmc 1) and stores it at memory address 0x48000000, which the M4 can access.
 
-The 'dcache flush' command ensures data integrity, synchronizing memory modifications with the shared main memory of Cortex A53 and Cortex M4.
+The `dcache flush` command ensures data integrity, synchronizing memory modifications with the shared main memory of Cortex A53 and Cortex M4.
 
 Copying a data block from 0x48000000 to 0x007e0000, the block's size is specified as 0x20000.
 
-Executing "bootaux ${m4addr}" activates the Cortex-M4 core, displaying `hello world` on the M4 UART interface. This establishes communication between both cores.
+Executing `bootaux ${m4addr}` activates the Cortex-M4 core, displaying `hello world` on the M4 UART interface. This establishes communication between both cores.
 
 ### Interprocess Communication (IPC) - RPmsg on Verdin i. MX8M Mini:
 
