@@ -165,8 +165,53 @@ Executing `bootaux ${m4addr}` activates the Cortex-M4 core, displaying `hello wo
 
 ### Interprocess Communication (IPC) - RPmsg on Verdin i. MX8M Mini:
 
+Modern System-on-Chips (SoCs) often employ heterogeneous remote processor devices in asymmetric multiprocessing (AMP) configurations, which utilize different instances of operating systems such as Linux and real-time OS. RPmsg serves as a communication bridge between kernel drivers on different processors, allowing the exchange of messages and data. This note describes the process of configuring and utilizing RPmsg for communication between a Cortex A53 processor (Linux) and a Cortex M4 processor (RTOS). You can find more information about RPMsg in AMP configurations [here](https://technotes.kynetics.com/2018/Linux_rpmsg_char_driver/). 
 
+#### Procedure
 
+1. Building RPmsg Executables:
+    * Download the FreeRTOS source files, [here](https://developer.toradex.com/software/real-time/freertos/freertos-on-the-cortex-m4-of-a-verdin-imx8m-mini/#get-the-freertos-source-code)
+    * Navigate to `/boards/evkmimx8mm/multicore_examples`
+    * Two folders exist in this directory: `rpmsg_lite_pingpong_rtos` and `rpmsg_lite_str_echo_rtos`.
+    * For example, navigate to `/boards/evkmimx8mm/multicore_examples/rpmsg_lite_str_echo_rtos/armgcc`.
+    * Run the `build_all.sh` shell script to generate executables.
+    * This results in the creation of two files: `rpmsg_lite_str_echo_rtos.bin` and `rpmsg_lite_str_echo_rtos_imxcm4.elf`.
+    * Copy the `rpmsg_lite_str_echo_rtos.bin` on a SD card.
+2. Device Tree Modifications:
+    * Default device tree may lack the RPmsg feature definition.
+    * Combine existing device tree files like `imx8mm-evk-rpmsg.dts`, `imx8mm-verdin.dtsi`, `imx8mm-verdin-wifi.dtsi`, and `imx8mm-verdin-dev.dtsi` to create **`imx8mm-verdin-wifi-dev-rpmsg.dts`** in the `{HOME}/path/oe-core/build/tmp/work-shared/verdin-imx8mm/kernel-source/arch/arm64/boot/dts/freescale `
+    * Include the necessary .dtsi files within `imx8mm-evk-rpmsg.dts`, then rename it to `imx8mm-verdin-wifi-dev-rpmsg.dts`.
+    * Add the following command in the corresponding Makefile:
+      ```bash
+      dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-rpmsg.dtb
+      ```
+    * Modify the `KERNEL_DEVICETREE` and `TORADEX_PRODUCT_IDS` in the  machine configuration `verdin-imx8mm.conf` in the `/oe-core/layers/meta-toradex-nxp/conf/machine` directory.
+      ```bash
+      KERNEL_DEVICETREE = " \
+      freescale/imx8mm-verdin-nonwifi-dahlia.dtb \
+      freescale/imx8mm-verdin-nonwifi-dev.dtb \
+      freescale/imx8mm-verdin-nonwifi-yavia.dtb \
+      freescale/imx8mm-verdin-wifi-dahlia.dtb \
+      freescale/imx8mm-verdin-wifi-dev.dtb \
+      freescale/imx8mm-verdin-wifi-yavia.dtb \
+      freescale/imx8mm-verdin-wifi-dev-rpmsg.dtb \
+      "
+      ```  
+      ```bash
+      TORADEX_PRODUCT_IDS[0055] = "imx8mm-verdin-wifi-v1.1-dev-rpmsg.dtb"
+      ```
+      **Note**: For TORADEX_PRODUCT_IDS[0055], first check the Product id of your system, in this case it is **0055**
+3. Building and Installing the Image:
+    * Use bitbake to build the new image incorporating the custom device tree.
+    * Install the new image on the board.
+4. U-Boot Configuration:
+    * Within U-Boot, execute the following commands to load the RPmsg file into memory and boot the M4 core:
+      ```bash
+      Verdin iMX8MM # setenv m4addr 0x7e0000
+      Verdin iMX8MM # saveenv
+      Verdin iMX8MM # fatload mmc 1 0x48000000 rpmsg_lite_str_echo_rtos.bin && dcache flush && cp.b 0x48000000 ${m4addr} 0x20000
+      Verdin iMX8MM # bootaux ${m4addr}
+      ```
 ### Refrences:
 * [Build a Reference Image with Yocto Project/OpenEmbedded](https://developer.toradex.com/linux-bsp/os-development/build-yocto/build-a-reference-image-with-yocto-projectopenembedded/?gclid=CjwKCAjwsvujBhAXEiwA_UXnAEbxzwboBRawAccQ5irI6bVBE26zMIeLDcsvv2Nfc891noOnpLSevhoCEHMQAvD_BwE)
 * [Android 11 for Toradex Verdin i.MX8MM](https://technotes.kynetics.com/2021/Android_11_1.0.0_Toradex_Verdin_iMX8MM_V1.1A/)
