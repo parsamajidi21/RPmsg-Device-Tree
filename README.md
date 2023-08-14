@@ -180,7 +180,8 @@ Modern System-on-Chips (SoCs) often employ heterogeneous remote processor device
 2. Device Tree Modifications:
     * Default device tree may lack the RPmsg feature definition.
     * Combine existing device tree files like `imx8mm-evk-rpmsg.dts`, `imx8mm-verdin.dtsi`, `imx8mm-verdin-wifi.dtsi`, and `imx8mm-verdin-dev.dtsi` to create **`imx8mm-verdin-wifi-dev-rpmsg.dts`** in the `{HOME}/path/oe-core/build/tmp/work-shared/verdin-imx8mm/kernel-source/arch/arm64/boot/dts/freescale `
-    * Include the necessary .dtsi files within `imx8mm-evk-rpmsg.dts`, then rename it to `imx8mm-verdin-wifi-dev-rpmsg.dts`.
+    * Include the necessary .dtsi files within `imx8mm-evk-rpmsg.dts`, then rename it to `imx8mm-verdin-wifi-dev-rpmsg.dts`.    
+       **Find the custom device tree [here](https://github.com/parsamajidi21/RPmsg-Device-Tree/blob/main/imx8mm-verdin-wifi-dev-rpmsg.dts)** 
     * Add the following command in the corresponding Makefile:
       ```bash
       dtb-$(CONFIG_ARCH_MXC) += imx8mm-verdin-wifi-dev-rpmsg.dtb
