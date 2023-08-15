@@ -216,6 +216,22 @@ Modern System-on-Chips (SoCs) often employ heterogeneous remote processor device
 Upon executing the provided U-Boot commands, the Cortex M4 processor successfully loads the RPmsg executable from memory. Subsequently, booting the system in the M4 console confirms the readiness of the M4 processor to receive messages from the Linux side.
 ![](https://github.com/parsamajidi21/RPmsg-Device-Tree/blob/main/images/photo5.png)
 
+#### Loading RPmsg Module and Device Creation:
+After following the previously mentioned steps and booting the system in the Linux console, the next phase involves loading the RPmsg module and creating the necessary device for communication.
+
+In the Linux console, execute the command to load the RPmsg module:
+```bash
+modprobe imx_rpmsg_tty
+```
+This command initializes the RPmsg module, enabling communication between the Linux and RTOS processors.
+After device creation, the RPmsg device is accessible as /dev/ttyRPMSG30.
+Messages sent from the Linux side to /dev/ttyRPMSG30 will be received and displayed in the M4 console, demonstrating the successful data exchange through RPmsg.
+
+![](https://github.com/parsamajidi21/RPmsg-Device-Tree/blob/main/images/photo6.png)
+
+#### summary
+The completion of these steps solidifies the RPmsg communication framework's functionality. By loading the RPmsg module, creating the RPmsg device, and engaging in bidirectional communication, the system successfully demonstrates interprocessor communication between the Cortex A53 (Linux) and Cortex M4 (RTOS) processors. This comprehensive implementation underscores the efficiency and versatility of RPmsg in enabling seamless communication in heterogeneous systems.
+
 ### Refrences:
 * [Build a Reference Image with Yocto Project/OpenEmbedded](https://developer.toradex.com/linux-bsp/os-development/build-yocto/build-a-reference-image-with-yocto-projectopenembedded/?gclid=CjwKCAjwsvujBhAXEiwA_UXnAEbxzwboBRawAccQ5irI6bVBE26zMIeLDcsvv2Nfc891noOnpLSevhoCEHMQAvD_BwE)
 * [Android 11 for Toradex Verdin i.MX8MM](https://technotes.kynetics.com/2021/Android_11_1.0.0_Toradex_Verdin_iMX8MM_V1.1A/)
