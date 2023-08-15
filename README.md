@@ -242,6 +242,7 @@ Introduction
 * [Asymmetric Multiprocessing and Embedded Linux](https://elinux.org/images/3/3b/NOVAK_CERVENKA.pdf)
 * [An Introduction to Asymmetric Multiprocessing: When this Architecture can be a Game Changer](https://www.slideshare.net/kynetics/amp-kynetics-elc-2018-portland)
 * [FreeRTOS on the Cortex-M4 of a Colibri iMX7, RPMSG TTY Example](https://developer.toradex.com/software/real-time/freertos/freertos-on-the-cortex-m4-of-a-colibri-imx7#rpmsg-tty-example)
+* [Asymmetric Multiprocessing: RPMsg device and driver on Linux and Android](https://technotes.kynetics.com/2018/Linux_rpmsg_char_driver/)
 
 
 
