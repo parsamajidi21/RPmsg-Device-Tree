@@ -30,7 +30,7 @@ The following steps will guide you through the installation of the built Yocto L
 
 ### Installation of Yocto Linux
 As an official definition of the Yocto Project, the Yocto Project is an open-source collaboration project that helps developers create custom Linux-based systems regardless of the hardware architecture.
-#### step 1: Setting up the environment
+#### step 1: 
 The first step is to prepare our workspace, the ‘repo’ utility is used for this purpose. The repo utility is based on Google’s Git-repo tool and provides a way to manage a set of repositories as a single super project. It allows to specify a manifest file that defines the repositories, their locations, and the branches to be used. The manifest file is an XML file that describes the project’s structure.
 ##### Install the repo bootstrap binary:
 ```bash
@@ -53,7 +53,7 @@ $ . export
 **Note**: Sourcing export configures the shell environment for the current shell session. You must enter this command whenever you open a new shell session for use with OpenEmbedded.
 
 #### step 2:
-First of all the target machine should be specified and as the image is being built for the Verdin i.MX8 Mini, some changes are needed. The following line in local.conf should be uncommented:
+All the target machine should be specified and as the image is being built for the Verdin i.MX8 Mini, some changes are needed. The following line in local.conf should be uncommented:
 ```bash
 MACHINE ?= "verdin-imx8mm"
 ```
@@ -63,7 +63,7 @@ Since the image is being constructed for a device utilizing an NXP-based System 
 ACCEPT_FSL_EULA = "1"
 ```
 #### step 4:
-The target reference image in this case is [**tdx-reference-minimal-image**](https://developer.toradex.com/linux-bsp/os-development/build-yocto/build-a-reference-image-with-yocto-projectopenembedded/?gclid=CjwKCAjwsvujBhAXEiwA_UXnAEbxzwboBRawAccQ5irI6bVBE26zMIeLDcsvv2Nfc891noOnpLSevhoCEHMQAvD_BwE#build-an-image) which is a non-graphical-interface image, and it includes the base command-line package ‘**packagegroup-base-tdx-cli**’ included in '**packagegroup-tdx-cli.bb**'.
+The target reference image in this case is [**tdx-reference-minimal-image**](https://developer.toradex.com/linux-bsp/os-development/build-yocto/build-a-reference-image-with-yocto-projectopenembedded/?gclid=CjwKCAjwsvujBhAXEiwA_UXnAEbxzwboBRawAccQ5irI6bVBE26zMIeLDcsvv2Nfc891noOnpLSevhoCEHMQAvD_BwE#build-an-image) which is a non-graphical-interface image, and it includes the base command-line package ‘**packagegroup-base-tdx-cli**’ included in '**[packagegroup-tdx-cli.bb](https://git.toradex.com/cgit/meta-toradex-demos.git/tree/recipes-images/images/packagegroup-tdx-cli.bb?h=dunfell-5.x.y)**'.
 Finally the image is built using the following command:
 ```bash
 $ bitbake tdx-refrence-minimal-image
