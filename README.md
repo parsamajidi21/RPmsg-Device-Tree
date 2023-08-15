@@ -30,7 +30,7 @@ The following steps will guide you through the installation of the built Yocto L
 
 ### Installation of Yocto Linux
 As an official definition of the Yocto Project, the Yocto Project is an open-source collaboration project that helps developers create custom Linux-based systems regardless of the hardware architecture.
-#### step 1:  
+#### step 1: Setting up the environment
 The first step is to prepare our workspace, the ‘repo’ utility is used for this purpose. The repo utility is based on Google’s Git-repo tool and provides a way to manage a set of repositories as a single super project. It allows to specify a manifest file that defines the repositories, their locations, and the branches to be used. The manifest file is an XML file that describes the project’s structure.
 ##### Install the repo bootstrap binary:
 ```bash
@@ -52,7 +52,7 @@ $ . export
 ```
 **Note**: Sourcing export configures the shell environment for the current shell session. You must enter this command whenever you open a new shell session for use with OpenEmbedded.
 
-#### step 2: Adjust the settings in the local.conf file
+#### step 2:
 First of all the target machine should be specified and as the image is being built for the Verdin i.MX8 Mini, some changes are needed. The following line in local.conf should be uncommented:
 ```bash
 MACHINE ?= "verdin-imx8mm"
@@ -213,6 +213,9 @@ Modern System-on-Chips (SoCs) often employ heterogeneous remote processor device
       Verdin iMX8MM # fatload mmc 1 0x48000000 rpmsg_lite_str_echo_rtos.bin && dcache flush && cp.b 0x48000000 ${m4addr} 0x20000
       Verdin iMX8MM # bootaux ${m4addr}
       ```
+Upon executing the provided U-Boot commands, the Cortex M4 processor successfully loads the RPmsg executable from memory. Subsequently, booting the system in the M4 console confirms the readiness of the M4 processor to receive messages from the Linux side.
+![](https://github.com/parsamajidi21/RPmsg-Device-Tree/blob/main/images/photo5.png)
+
 ### Refrences:
 * [Build a Reference Image with Yocto Project/OpenEmbedded](https://developer.toradex.com/linux-bsp/os-development/build-yocto/build-a-reference-image-with-yocto-projectopenembedded/?gclid=CjwKCAjwsvujBhAXEiwA_UXnAEbxzwboBRawAccQ5irI6bVBE26zMIeLDcsvv2Nfc891noOnpLSevhoCEHMQAvD_BwE)
 * [Android 11 for Toradex Verdin i.MX8MM](https://technotes.kynetics.com/2021/Android_11_1.0.0_Toradex_Verdin_iMX8MM_V1.1A/)
